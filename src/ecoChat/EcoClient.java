@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class EcoClient {
-	public static void main(String[] args) {
+public class EcoClient extends Thread{
+	public void run() {
 		int i=1;
 		String message=null;
 		BufferedReader reader;
@@ -14,7 +14,7 @@ public class EcoClient {
 			System.out.println("client started");
 
 			if(i==1) {
-				Socket socket=new Socket("193.161.193.99",48708);
+				Socket socket=new Socket("127.0.0.1",5000);
 				System.out.println("connection establishedS");
 				
 				//to send msg
@@ -32,7 +32,7 @@ public class EcoClient {
 			}
 
 			while(i>1) {
-				Socket socket=new Socket("193.161.193.99",48708);
+				Socket socket=new Socket("127.0.0.1",5000);
 				reader=new BufferedReader(new InputStreamReader(System.in));
 				System.err.println("enter the message: ");
 				message=reader.readLine();
@@ -43,8 +43,7 @@ public class EcoClient {
 				reader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				message=reader.readLine();
 				System.out.println(message);
-				i=2;
-				
+				i=2;				
 			}
 
 		} catch (Exception e) {
@@ -53,4 +52,9 @@ public class EcoClient {
 		} 
 	}
 
+	public static void main(String[] args) {
+		EcoClient client=new EcoClient();
+		client.start();
+	}
 }
+
