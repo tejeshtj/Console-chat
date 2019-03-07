@@ -7,10 +7,11 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class EcoServer {
-	public static void main(String[] args) {
+public class EcoServer extends Thread {
+	public  void run() {
 		PrintWriter out;
-
+		
+		
 		try {
 			ServerSocket ss=new ServerSocket(5000);
 			System.out.println("server started");
@@ -34,5 +35,10 @@ public class EcoServer {
 
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		EcoServer eco= new EcoServer();
+		eco.start();
 	}
 }
